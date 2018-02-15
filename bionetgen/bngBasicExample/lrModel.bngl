@@ -1,0 +1,61 @@
+# Signal transduction with receptor internalization and transcriptional reg.  #
+begin model
+begin parameters
+  vol_CP          9        #CP volume cytoplasmic volume
+  vol_EC          18
+  sa_PM           21        # membrane surface areas. Square microns
+  rxn_layer_t       0.01    # effective surface width
+  vol_PM          sa_PM * rxn_layer_t 
+
+  L0              1000   # initial species counts (extensive units: quantity, not concentration)
+  R0              200     
+
+  kp_LR           0.1    # kinetic parameter for L-R binding (2nd order reaction params in vol/time units)
+  km_LR           1.0    # kinetic parameter for L-R unbinding (1st order reaction params in 1/time units)
+  k_R_transphos   1.0    # kinetic parameter for receptor transphosphorylation
+  k_R_dephos      0.1
+# more information on units can be found @ # http://bionetgen.org/index.php/Unit_conventions_for_Compartmental_BNG
+end parameters
+
+begin compartments
+  EC  3  vol_EC  
+  PM  2  vol_PM      EC
+  CP  3  vol_CP      PM
+end compartments
+
+begin molecule types
+  L(r,d)               # Ligand w/ receptor binding and dimerization sites.
+  R(l,Y~0~P)         # Receptor with ligand and TF binding sites.
+end molecule types
+
+begin seed species
+  L(r,d)@EC            L0
+  R(l,Y~0)@PM          R0
+end seed species
+
+       
+begin observables
+  Molecules  L_Tot         L()
+  Molecules  R_Tot         R()
+  Molecules  L_free        L(r)
+  Molecules  L_Bound       L(r!1).R(l!1)
+  Molecules  R_phospo R(Y~P)
+end observables
+
+begin reaction rules
+  # receptor-ligand binding.
+  L(r) + R(l)  <->  L(r!1).R(l!1) kp_LR, km_LR
+
+  #Receptor transphosphorylation
+  R(l!+,Y~0) -> R(l!+,Y~P)  k_R_transphos
+
+  #dephosphorylation
+  R(Y~P) -> R(Y~0) k_R_dephos
+end reaction rules  
+end model
+
+# actions #
+
+generate_network()
+writeSBML()  
+simulate({method=>"ssa",t_start=>0,t_end=>1,n_steps=>100})

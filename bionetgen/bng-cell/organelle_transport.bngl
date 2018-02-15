@@ -1,0 +1,68 @@
+begin parameters
+    Nav  6.022e8  #6.022e23*1e-15 
+    kp_LR 4e8/Nav   #1/M 1/s -> um^3/s
+    km_LR 10   #1/s
+    k_LRtrans 1000
+    kp_LT1 4e8/ Nav #1/M 1/s -> um^3/s
+    km_LT1 10
+    k_LT1trans 1000
+    kp_L2T2 4e8/ Nav #1/M 1/s -> um^3/s
+    km_L2T2 10
+    k_L2T2trans 1000
+    vol_cell 0.457   #volume of a cell (um^3)
+    rxn_layer_t 0.01 #width of a cell (um)
+    vol_O1M 0.12 * rxn_layer_t #surface area of a cell (um^2) * width (um)
+    vol_organelle1 0.003  # volume of an organelle (um^3)
+    vol_O2M 0.37 * rxn_layer_t
+    vol_organelle2 0.02
+end parameters
+
+begin compartments
+  # name dim size parent
+  cell  3  vol_cell  #size in cubic microns
+  O1M  2  vol_O1M   cell
+  organelle1  3  vol_organelle1   O1M
+  O2M  2  vol_O2M   cell
+  organelle2  3  vol_organelle2   O2M
+end compartments
+
+begin molecule types
+L()
+R()
+LR()
+T1()
+LT1()
+L2()
+T2()
+L2T2()
+end molecule types
+
+begin seed species
+@cell:L 1000   #molecule counts
+@O1M:R 200
+@O1M:T1 1000
+@O2M:T2 1000
+end seed species
+
+begin observables
+Species FreeL_cell @cell:L
+Species FreeL_2_cell @cell:L2
+Species FreeL_2_organelle2 @organelle2:L2
+Species BoundLR_cell @O1M:LR
+end observables
+
+begin functions
+end functions
+
+begin reaction rules
+# HINT: This reaction is missing
+LR -> @organelle1:L + R k_LRtrans
+@organelle1:L + T1 <-> LT1 kp_LT1, km_LT1
+LT1 -> T1 + @cell:L2 k_LT1trans
+@cell:L2 + T2 <-> L2T2 kp_L2T2, km_L2T2
+L2T2 -> T2 + @organelle2:L2 k_L2T2trans
+end reaction rules
+
+generate_network({overwrite=>1})
+writeSBML()  
+simulate({method=>"ode",t_start=>0,t_end=>0.07,n_steps=>20})
