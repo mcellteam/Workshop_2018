@@ -1,7 +1,7 @@
-# Workshop 2016 - CellBlender
-## Repository for CellBlender models, descriptions, and code to be used for the 2016 Workshop.
+# Workshop 2018 - CellBlender
+## Repository for CellBlender models, descriptions, and code to be used for the 2018 Workshop.
 
-This directory contains files and documentation for the CellBlender portion of the 2016 Workshop.
+This directory contains files and documentation for the CellBlender portion of the 2018 Workshop.
 
 This is the basic "Organelle" model that we have used in other tutorials. This particular version
 was completely generated within CellBlender.

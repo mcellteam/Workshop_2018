@@ -1,5 +1,5 @@
 # BioNetGen
-## Repository for BioNetGen models, descriptions, and code to be used for the 2016 Workshop.
+## Repository for BioNetGen models, descriptions, and code to be used for the 2018 Workshop.
 
 The BioNetGen portion of the workshop will cover ...
 
@@ -21,7 +21,7 @@ Install RuleBender 2.1.0.5
 * Right click on directory in **Navigator**
 * Select **Import**
 * Select **General -> File System**
-* Hit **Browse** and navigate to **Workshop_2016 -> bionetgen -> bng-cell**
+* Hit **Browse** and navigate to **Workshop_2018 -> bionetgen -> bng-cell**
 * Hit **Okay**
 * Select **organelle_transport.bngl**
 * Hit **Finish**
