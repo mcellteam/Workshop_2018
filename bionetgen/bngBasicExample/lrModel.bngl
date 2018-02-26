@@ -55,7 +55,5 @@ end reaction rules
 end model
 
 # actions #
-
-generate_network()
 writeSBML()  
 simulate({method=>"ssa",t_start=>0,t_end=>1,n_steps=>100})
