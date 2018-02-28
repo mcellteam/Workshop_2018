@@ -3,6 +3,8 @@
 
 This directory contains files and documentation for the CellBlender portion of the 2018 Workshop.
 
+A tutorial overview of CellBlender that presents the Lotke-Volterra, Lipid Raft, and other models is available [here](Gupta_v6.pdf). This is a preprint of a chapter to appear in the soon-to-be published *q-bio Textbook*.
+
 This is the basic "Organelle" model that we have used in other tutorials. This particular version
 was completely generated within CellBlender.
 
