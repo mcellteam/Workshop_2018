@@ -1,7 +1,7 @@
 # BioNetGen
 ## Repository for BioNetGen models, descriptions, and code to be used for the 2018 Workshop.
 
-Materials for the BioNetGen portion of the workshop are available [here](https://github.com/RuleWorld/BNGTutorial).
+Materials for the BioNetGen portion of the workshop are available [here](https://github.com/RuleWorld/BNGTutorial/README.md).
 
 ## Requirements
 
